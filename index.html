@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balkawa Cleaning Hospitality & Contract</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #E8304A;
+      --navy: #0F1E3C;
+      --teal: #1A9E96;
+      --light: #F4F6F9;
+      --white: #ffffff;
+      --gray: #8A93A6;
+      --dark: #07122A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(7, 18, 42, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 38px; height: 38px;
+      background: var(--red);
+      display: grid; place-items: center;
+      clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+    }
+
+    .nav-logo-icon svg { width: 22px; height: 22px; fill: white; }
+
+    .nav-logo span {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: white;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--red); }
+
+    .nav-cta {
+      background: var(--red);
+      color: white !important;
+      padding: 9px 22px;
+      border-radius: 4px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: #c9263e !important; color: white !important; }
+
+    /* ─── LANGUAGE SWITCHER ─── */
+    .lang-switcher {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .lang-btn {
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.8);
+      padding: 7px 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .lang-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .lang-btn .lang-flag { font-size: 1rem; line-height: 1; }
+
+    .lang-btn .lang-chevron {
+      width: 12px; height: 12px;
+      fill: rgba(255,255,255,0.5);
+      transition: transform 0.22s;
+      flex-shrink: 0;
+    }
+
+    .lang-switcher.open .lang-chevron { transform: rotate(180deg); }
+
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      background: #0d1e3e;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 6px;
+      min-width: 160px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 200;
+    }
+
+    .lang-switcher.open .lang-dropdown {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .lang-option {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .lang-option:hover { background: rgba(255,255,255,0.07); color: white; }
+
+    .lang-option.active {
+      background: rgba(232,48,74,0.15);
+      color: var(--red);
+    }
+
+    .lang-option .lang-flag { font-size: 1.1rem; }
+
+    .lang-option .lang-native {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      margin-left: auto;
+    }
+
+    .lang-option.active .lang-native { color: rgba(232,48,74,0.6); }
+
+    /* RTL support for Arabic */
+    body.lang-ar { direction: rtl; }
+    body.lang-ar nav { flex-direction: row-reverse; }
+    body.lang-ar .lang-dropdown { left: auto; right: 0; }
+    body.lang-ar .nav-links { flex-direction: row-reverse; }
+    body.lang-ar .hero-content { text-align: right; }
+    body.lang-ar .hero-btns { flex-direction: row-reverse; }
+    body.lang-ar .hero-stats { right: auto; left: 60px; text-align: left; }
+    body.lang-ar .stat { text-align: left; }
+    body.lang-ar .section-body { margin-left: auto; margin-right: 0; }
+    body.lang-ar .services-header { flex-direction: row-reverse; align-items: flex-end; }
+    body.lang-ar .service-num { right: auto; left: 32px; }
+    body.lang-ar .about-float-badge { right: auto; left: 30px; }
+    body.lang-ar .contact-card { flex-direction: row-reverse; text-align: right; }
+    body.lang-ar footer { flex-direction: row-reverse; }
+
+    /* Hindi font support */
+    body.lang-hi { font-family: 'Noto Sans Devanagari', 'DM Sans', sans-serif; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      background: var(--dark);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(232,48,74,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,48,74,0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.6;
+    }
+
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(26,158,150,0.18) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 70% at 10% 80%, rgba(232,48,74,0.12) 0%, transparent 60%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 60px;
+      max-width: 760px;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(232,48,74,0.15);
+      border: 1px solid rgba(232,48,74,0.4);
+      color: var(--red);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      color: white;
+      margin-bottom: 24px;
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    h1 .accent-teal { color: var(--teal); }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.55);
+      max-width: 520px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .hero-btns {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.45s ease both;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    .btn-primary:hover { background: #c9263e; transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: border-color 0.2s, transform 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-2px); }
+
+    .hero-stats {
+      position: absolute; bottom: 60px; right: 60px;
+      display: flex; gap: 40px;
+      animation: fadeUp 0.7s 0.6s ease both;
+    }
+
+    .stat {
+      text-align: right;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+    }
+
+    .stat-num span { color: var(--red); }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 100px 60px; }
+
+    .section-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    .section-body {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #4A5568;
+      max-width: 600px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--light);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-card {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 48px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: var(--red);
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+
+    .about-card-quote {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      font-style: italic;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 24px;
+    }
+
+    .about-card-sig {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: var(--teal);
+      font-size: 0.9rem;
+    }
+
+    .about-float-badge {
+      position: absolute;
+      bottom: -20px; right: 30px;
+      background: var(--red);
+      color: white;
+      border-radius: 12px;
+      padding: 16px 24px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      box-shadow: 0 12px 40px rgba(232,48,74,0.35);
+    }
+
+    .about-float-badge small {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 400;
+      font-family: 'DM Sans', sans-serif;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    /* ─── SERVICES ─── */
+    #services {
+      background: var(--white);
+    }
+
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      border-radius: 16px;
+      padding: 44px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: default;
+    }
+
+    .service-card:hover { transform: translateY(-6px); }
+
+    .service-card.cleaning { background: var(--navy); color: white; }
+    .service-card.hospitality { background: var(--teal); color: white; }
+    .service-card.contracting { background: var(--red); color: white; }
+
+    .service-card-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.15);
+      display: grid; place-items: center;
+      margin-bottom: 28px;
+    }
+
+    .service-card-icon svg {
+      width: 28px; height: 28px;
+      fill: white;
+    }
+
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .service-card p {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      opacity: 0.8;
+      margin-bottom: 24px;
+    }
+
+    .service-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+
+    .service-tag {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+
+    .service-num {
+      position: absolute;
+      top: 28px; right: 32px;
+      font-family: 'Syne', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      opacity: 0.08;
+      line-height: 1;
+    }
+
+    /* ─── WHY ─── */
+    #why {
+      background: var(--dark);
+      color: white;
+    }
+
+    #why .section-title { color: white; }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .why-item {
+      padding: 32px 24px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .why-item:hover {
+      border-color: rgba(232,48,74,0.4);
+      background: rgba(232,48,74,0.05);
+    }
+
+    .why-icon {
+      width: 44px; height: 44px;
+      background: rgba(232,48,74,0.15);
+      border-radius: 10px;
+      display: grid; place-items: center;
+      margin-bottom: 20px;
+    }
+
+    .why-icon svg { width: 22px; height: 22px; fill: var(--red); }
+
+    .why-item h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .why-item p {
+      font-size: 0.87rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+
+    /* ─── GALLERY ─── */
+    #gallery {
+      background: var(--light);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--navy);
+      aspect-ratio: 1;
+      position: relative;
+    }
+
+    .gallery-item.wide { grid-column: span 2; aspect-ratio: 2/1; }
+
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 10px;
+    }
+
+    .gallery-placeholder svg { width: 36px; height: 36px; fill: rgba(255,255,255,0.2); }
+    .gallery-placeholder span { font-size: 0.78rem; color: rgba(255,255,255,0.3); font-weight: 500; }
+
+    .gallery-item.cleaning-bg { background: linear-gradient(135deg, #1a2a5e, #0d1836); }
+    .gallery-item.teal-bg { background: linear-gradient(135deg, #0d6e6a, #0a4f4c); }
+    .gallery-item.red-bg { background: linear-gradient(135deg, #8c1a28, #5c0f1a); }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--navy);
+      color: white;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    #contact .section-title { color: white; }
+    #contact .section-body { color: rgba(255,255,255,0.5); }
+
+    .contact-cards {
+      display: flex; flex-direction: column; gap: 16px;
+      margin-top: 40px;
+    }
+
+    .contact-card {
+      display: flex; align-items: center; gap: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: white;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact-card:hover {
+      border-color: rgba(232,48,74,0.4);
+      background: rgba(232,48,74,0.05);
+    }
+
+    .contact-card-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(232,48,74,0.15);
+      border-radius: 10px;
+      display: grid; place-items: center;
+    }
+
+    .contact-card-icon svg { width: 20px; height: 20px; fill: var(--red); }
+
+    .contact-card-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 3px;
+    }
+
+    .contact-card-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .contact-form-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    .contact-form-box h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: rgba(232,48,74,0.5);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-group select option { background: var(--navy); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      padding: 40px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: white;
+    }
+
+    .footer-brand span { color: var(--red); }
+
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: white; }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 70px 24px; }
+      #about { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.wide { grid-column: span 1; aspect-ratio: 1; }
+      #contact { grid-template-columns: 1fr; gap: 40px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .hero-stats { position: static; margin-top: 48px; justify-content: flex-start; }
+      .hero-content { padding: 0 24px; }
+      .services-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <!-- Language Switcher (left) -->
+  <div class="lang-switcher" id="langSwitcher">
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">
+      <span class="lang-flag">🇬🇧</span>
+      <span id="langBtnLabel">EN</span>
+      <svg class="lang-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+      <div class="lang-option active" onclick="setLang('en')" data-lang="en">
+        <span class="lang-flag">🇬🇧</span> English <span class="lang-native">English</span>
+      </div>
+      <div class="lang-option" onclick="setLang('ar')" data-lang="ar">
+        <span class="lang-flag">🇶🇦</span> Arabic <span class="lang-native">العربية</span>
+      </div>
+      <div class="lang-option" onclick="setLang('hi')" data-lang="hi">
+        <span class="lang-flag">🇮🇳</span> Hindi <span class="lang-native">हिन्दी</span>
+      </div>
+    </div>
+  </div>
+
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7z"/></svg>
+    </div>
+    <span>BALKAWA</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#services" data-i18n="nav_services">Services</a></li>
+    <li><a href="#why" data-i18n="nav_why">Why Us</a></li>
+    <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
+    <li><a href="#contact" class="nav-cta" data-i18n="nav_contact">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-badge" data-i18n="hero_badge">Doha, Qatar's #1 Cleaning Company</div>
+    <h1 data-i18n="hero_h1">Cleaning.<br><em>Hospitality.</em><br><span class="accent-teal">Contracting.</span></h1>
+    <p class="hero-sub" data-i18n="hero_sub">Balkawa delivers professional cleaning, world-class hospitality staffing, and full-scale contracting services across Qatar — trusted by homes, hotels, and construction sites alike.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg>
+        <span data-i18n="hero_btn1">Explore Services</span>
+      </a>
+      <a href="#contact" class="btn-secondary" data-i18n="hero_btn2">Get a Free Quote →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">3<span>+</span></div>
+      <div class="stat-label">Core Services</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100<span>%</span></div>
+      <div class="stat-label">Satisfaction</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24<span>/7</span></div>
+      <div class="stat-label">Support</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text reveal">
+    <div class="section-tag" data-i18n="about_tag">Who We Are</div>
+    <h2 class="section-title" data-i18n="about_title">Qatar's Most Trusted Service Partner</h2>
+    <p class="section-body" data-i18n="about_body">Balkawa Hospitality & Cleaning Services is committed to providing the very best services for residential, commercial, and construction properties. Using the latest technologies, we're leading the way compared to other local companies in Doha. Our passion and attention to detail make us different — and the vast majority of our work comes from repeat clients and referrals.</p>
+  </div>
+  <div class="about-visual reveal">
+    <div class="about-card">
+      <p class="about-card-quote" data-i18n="about_quote">"Our excellence in both the cleaning and hospitality fields has made us one of the most trusted companies locally — our dedication to quality is unparalleled."</p>
+      <div class="about-card-sig">— Balkawa Team</div>
+    </div>
+    <div class="about-float-badge">
+      Qatar
+      <small>Based in Doha</small>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-tag" data-i18n="services_tag">What We Do</div>
+      <h2 class="section-title" data-i18n="services_title">Our Core Services</h2>
+    </div>
+    <a href="#contact" class="btn-primary">Request a Quote →</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-card cleaning reveal">
+      <div class="service-num">01</div>
+      <div class="service-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14a3 3 0 003 3h9a3 3 0 003-3V2l-1.5 1.5zM19 16a1 1 0 01-2 0v-1H7V5h12v11z"/></svg>
+      </div>
+      <h3 data-i18n="svc1_title">Cleaning</h3>
+      <p data-i18n="svc1_body">Professional cleaning services designed to meet every need — residential, office, commercial, and deep cleaning using the latest techniques and high-quality products.</p>
+      <div class="service-tags">
+        <span class="service-tag">Residential</span>
+        <span class="service-tag">Commercial</span>
+        <span class="service-tag">Office</span>
+        <span class="service-tag">Deep Clean</span>
+        <span class="service-tag">Move In/Out</span>
+      </div>
+    </div>
+    <div class="service-card hospitality reveal">
+      <div class="service-num">02</div>
+      <div class="service-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+      </div>
+      <h3 data-i18n="svc2_title">Hospitality</h3>
+      <p data-i18n="svc2_body">Ensuring your guests feel welcomed and comfortable from arrival to departure. Our trained hospitality team handles every detail with care and professionalism.</p>
+      <div class="service-tags">
+        <span class="service-tag">Room Attendants</span>
+        <span class="service-tag">Waitstaff</span>
+        <span class="service-tag">Kitchen Support</span>
+        <span class="service-tag">Pest Control</span>
+      </div>
+    </div>
+    <div class="service-card contracting reveal">
+      <div class="service-num">03</div>
+      <div class="service-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      </div>
+      <h3 data-i18n="svc3_title">Contracting</h3>
+      <p data-i18n="svc3_body">Full-scale civil contracting delivered on time and within budget. Our experienced professionals consult on every project and provide custom, specialized solutions.</p>
+      <div class="service-tags">
+        <span class="service-tag">Civil Infrastructure</span>
+        <span class="service-tag">Road Projects</span>
+        <span class="service-tag">Pile Breaking</span>
+        <span class="service-tag">Demolition</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY BALKAWA -->
+<section id="why">
+  <div class="reveal" style="max-width:600px">
+    <div class="section-tag" style="color:var(--teal)" data-i18n="why_tag">Why Choose Us</div>
+    <h2 class="section-title" data-i18n="why_title">The Balkawa Difference</h2>
+    <p class="section-body" style="color:rgba(255,255,255,0.5)" data-i18n="why_body">We don't just complete jobs — we build long-term partnerships built on quality, trust, and results that speak for themselves.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-item reveal">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      </div>
+      <h4 data-i18n="why1_title">Trusted & Reliable</h4>
+      <p data-i18n="why1_body">The vast majority of our business comes from repeat clients and direct referrals — a testament to consistent quality.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      </div>
+      <h4 data-i18n="why2_title">Latest Technology</h4>
+      <p data-i18n="why2_body">We use cutting-edge equipment and techniques to deliver results that surpass industry standards.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+      </div>
+      <h4 data-i18n="why3_title">Professional Team</h4>
+      <p data-i18n="why3_body">All our staff are trained professionals dedicated to quality and customer satisfaction on every project.</p>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+      </div>
+      <h4 data-i18n="why4_title">On-Time Delivery</h4>
+      <p data-i18n="why4_body">We respect your time. All projects and services are delivered promptly with transparent communication throughout.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="reveal">
+    <div class="section-tag" data-i18n="gallery_tag">Our Work</div>
+    <h2 class="section-title" data-i18n="gallery_title">Project Gallery</h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item wide cleaning-bg reveal">
+      <div class="gallery-placeholder">
+        <svg viewBox="0 0 24 24"><path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14a3 3 0 003 3h9a3 3 0 003-3V2l-1.5 1.5z"/></svg>
+        <span>Commercial Cleaning</span>
+      </div>
+    </div>
+    <div class="gallery-item teal-bg reveal">
+      <div class="gallery-placeholder">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+        <span>Hospitality Staff</span>
+      </div>
+    </div>
+    <div class="gallery-item red-bg reveal">
+      <div class="gallery-placeholder">
+        <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-5h2v5h6v-8h3z"/></svg>
+        <span>Road Projects</span>
+      </div>
+    </div>
+    <div class="gallery-item red-bg reveal">
+      <div class="gallery-placeholder">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        <span>Civil Infrastructure</span>
+      </div>
+    </div>
+    <div class="gallery-item cleaning-bg reveal">
+      <div class="gallery-placeholder">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/></svg>
+        <span>Office Cleaning</span>
+      </div>
+    </div>
+    <div class="gallery-item wide teal-bg reveal">
+      <div class="gallery-placeholder">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        <span>Pile Breaking & Demolition</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-tag" style="color:var(--teal)" data-i18n="contact_tag">Get In Touch</div>
+    <h2 class="section-title" data-i18n="contact_title">Let's Work Together</h2>
+    <p class="section-body" data-i18n="contact_body">We maintain focus on the discipline of project management — our strong profile adds significant value and assists in planning interpretation of solutions. Always available to answer your questions.</p>
+    <div class="contact-cards">
+      <a href="tel:+97455070979" class="contact-card">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        </div>
+        <div>
+          <div class="contact-card-label">Phone</div>
+          <div class="contact-card-value">+974 5507 0979</div>
+        </div>
+      </a>
+      <a href="/cdn-cgi/l/email-protection#e381828f88829482808f86828d8a8d84a3848e828a8fcd808c8e" class="contact-card">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div>
+          <div class="contact-card-label">Email</div>
+          <div class="contact-card-value"><span class="__cf_email__" data-cfemail="741615181f150315171811151a1d1a13341319151d185a171b19">[email&#160;protected]</span></div>
+        </div>
+      </a>
+      <a href="https://balkawa.com" target="_blank" class="contact-card">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <div>
+          <div class="contact-card-label">Website</div>
+          <div class="contact-card-value">https://balkawa.com</div>
+        </div>
+      </a>
+      <div class="contact-card" style="cursor:default">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div>
+          <div class="contact-card-label">Location</div>
+          <div class="contact-card-value">Doha, Qatar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form-box reveal">
+    <h3>Send Us a Message</h3>
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" placeholder="John Doe" />
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" placeholder="john@example.com" />
+    </div>
+    <div class="form-group">
+      <label>Service Required</label>
+      <select>
+        <option value="">Select a service...</option>
+        <option>Residential Cleaning</option>
+        <option>Commercial Cleaning</option>
+        <option>Office Cleaning</option>
+        <option>Deep Cleaning</option>
+        <option>Hospitality Staffing</option>
+        <option>Contracting / Civil Works</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Message</label>
+      <textarea placeholder="Tell us about your project..."></textarea>
+    </div>
+    <button class="btn-primary" style="width:100%;justify-content:center;border:none;cursor:pointer;font-family:'DM Sans',sans-serif" onclick="alert('Thank you! We will be in touch shortly.')">
+      Send Message →
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">BALK<span>AWA</span></div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Balkawa Cleaning Hospitality & Contract. Doha, Qatar.</div>
+</footer>
+
+<script>
+  // ─── TRANSLATIONS ───
+  const translations = {
+    en: {
+      nav_about: 'About', nav_services: 'Services', nav_why: 'Why Us', nav_gallery: 'Gallery', nav_contact: 'Contact Us',
+      hero_badge: "Doha, Qatar's #1 Cleaning Company",
+      hero_h1: 'Cleaning.<br><em>Hospitality.</em><br><span class="accent-teal">Contracting.</span>',
+      hero_sub: 'Balkawa delivers professional cleaning, world-class hospitality staffing, and full-scale contracting services across Qatar — trusted by homes, hotels, and construction sites alike.',
+      hero_btn1: 'Explore Services', hero_btn2: 'Get a Free Quote →',
+      about_tag: 'Who We Are', about_title: "Qatar's Most Trusted Service Partner",
+      about_body: "Balkawa Hospitality & Cleaning Services is committed to providing the very best services for residential, commercial, and construction properties. Using the latest technologies, we're leading the way compared to other local companies in Doha. Our passion and attention to detail make us different — and the vast majority of our work comes from repeat clients and referrals.",
+      about_quote: '"Our excellence in both the cleaning and hospitality fields has made us one of the most trusted companies locally — our dedication to quality is unparalleled."',
+      services_tag: 'What We Do', services_title: 'Our Core Services',
+      svc1_title: 'Cleaning', svc1_body: 'Professional cleaning services designed to meet every need — residential, office, commercial, and deep cleaning using the latest techniques and high-quality products.',
+      svc2_title: 'Hospitality', svc2_body: 'Ensuring your guests feel welcomed and comfortable from arrival to departure. Our trained hospitality team handles every detail with care and professionalism.',
+      svc3_title: 'Contracting', svc3_body: 'Full-scale civil contracting delivered on time and within budget. Our experienced professionals consult on every project and provide custom, specialized solutions.',
+      why_tag: 'Why Choose Us', why_title: 'The Balkawa Difference',
+      why_body: "We don't just complete jobs — we build long-term partnerships built on quality, trust, and results that speak for themselves.",
+      why1_title: 'Trusted & Reliable', why1_body: 'The vast majority of our business comes from repeat clients and direct referrals — a testament to consistent quality.',
+      why2_title: 'Latest Technology', why2_body: 'We use cutting-edge equipment and techniques to deliver results that surpass industry standards.',
+      why3_title: 'Professional Team', why3_body: 'All our staff are trained professionals dedicated to quality and customer satisfaction on every project.',
+      why4_title: 'On-Time Delivery', why4_body: 'We respect your time. All projects and services are delivered promptly with transparent communication throughout.',
+      gallery_tag: 'Our Work', gallery_title: 'Project Gallery',
+      contact_tag: 'Get In Touch', contact_title: "Let's Work Together",
+      contact_body: 'We maintain focus on the discipline of project management — our strong profile adds significant value. Always available to answer your questions.',
+      form_title: 'Send Us a Message', form_name: 'Your Name', form_email: 'Email Address',
+      form_service: 'Service Required', form_service_placeholder: 'Select a service...',
+      form_msg: 'Message', form_placeholder_name: 'John Doe', form_placeholder_email: 'john@example.com',
+      form_placeholder_msg: 'Tell us about your project...', form_btn: 'Send Message →',
+      form_alert: 'Thank you! We will be in touch shortly.',
+      label_phone: 'Phone', label_email: 'Email', label_website: 'Website', label_location: 'Location',
+      stat1: 'Core Services', stat2: 'Satisfaction', stat3: 'Support',
+      footer_copy: '© 2025 Balkawa Cleaning Hospitality & Contract. Doha, Qatar.',
+    },
+    ar: {
+      nav_about: 'من نحن', nav_services: 'خدماتنا', nav_why: 'لماذا نحن', nav_gallery: 'معرض الأعمال', nav_contact: 'تواصل معنا',
+      hero_badge: 'الشركة الأولى في التنظيف بالدوحة، قطر',
+      hero_h1: 'تنظيف.<br><em>ضيافة.</em><br><span class="accent-teal">مقاولات.</span>',
+      hero_sub: 'تقدم بلكاوا خدمات تنظيف احترافية، وكوادر ضيافة عالمية، وخدمات مقاولات شاملة في جميع أنحاء قطر — موثوق بها من المنازل والفنادق ومواقع البناء على حد سواء.',
+      hero_btn1: 'استكشف خدماتنا', hero_btn2: '← احصل على عرض مجاني',
+      about_tag: 'من نحن', about_title: 'الشريك الأكثر موثوقية في قطر',
+      about_body: 'تلتزم بلكاوا بتقديم أفضل الخدمات للعقارات السكنية والتجارية وأعمال البناء، وذلك باستخدام أحدث التقنيات. شغفنا وحرصنا على التفاصيل يجعلاننا مختلفين — والغالبية العظمى من أعمالنا تأتي من عملاء متكررين وإحالات.',
+      about_quote: '"تميزنا في مجالي التنظيف والضيافة جعلنا من أكثر الشركات موثوقية محلياً — التزامنا بالجودة لا مثيل له."',
+      services_tag: 'ماذا نفعل', services_title: 'خدماتنا الرئيسية',
+      svc1_title: 'التنظيف', svc1_body: 'خدمات تنظيف احترافية مصممة لتلبية كل الاحتياجات — سكنية، مكتبية، تجارية، وتنظيف عميق باستخدام أحدث الأساليب.',
+      svc2_title: 'الضيافة', svc2_body: 'نضمن شعور ضيوفك بالترحيب والراحة من لحظة الوصول حتى المغادرة. فريقنا المدرب يهتم بكل تفصيلة بعناية واحترافية.',
+      svc3_title: 'المقاولات', svc3_body: 'مقاولات مدنية شاملة تُنجز في الوقت المحدد وضمن الميزانية. خبراؤنا يتشاورون معك في كل مشروع ويقدمون حلولاً مخصصة.',
+      why_tag: 'لماذا تختارنا', why_title: 'ما يميّز بلكاوا',
+      why_body: 'لا نكتفي بإنجاز المهام — بل نبني شراكات طويلة الأمد قائمة على الجودة والثقة والنتائج التي تتحدث عن نفسها.',
+      why1_title: 'موثوق وموثوق به', why1_body: 'الغالبية العظمى من أعمالنا تأتي من عملاء متكررين وإحالات مباشرة — دليل على جودة ثابتة.',
+      why2_title: 'أحدث التقنيات', why2_body: 'نستخدم أحدث المعدات والأساليب لتقديم نتائج تتجاوز معايير الصناعة.',
+      why3_title: 'فريق محترف', why3_body: 'جميع موظفينا محترفون مدربون ملتزمون بالجودة ورضا العميل في كل مشروع.',
+      why4_title: 'التسليم في الوقت المحدد', why4_body: 'نحترم وقتك. تُسلَّم جميع المشاريع والخدمات في الوقت المناسب مع تواصل شفاف طوال الوقت.',
+      gallery_tag: 'أعمالنا', gallery_title: 'معرض المشاريع',
+      contact_tag: 'تواصل معنا', contact_title: 'لنعمل معاً',
+      contact_body: 'نحافظ على التركيز في مجال إدارة المشاريع — ملفنا القوي يضيف قيمة كبيرة. نحن دائماً متاحون للإجابة على استفساراتك.',
+      form_title: 'أرسل لنا رسالة', form_name: 'اسمك', form_email: 'البريد الإلكتروني',
+      form_service: 'الخدمة المطلوبة', form_service_placeholder: 'اختر خدمة...',
+      form_msg: 'الرسالة', form_placeholder_name: 'محمد أحمد', form_placeholder_email: 'example@email.com',
+      form_placeholder_msg: 'أخبرنا عن مشروعك...', form_btn: '← إرسال الرسالة',
+      form_alert: 'شكراً لك! سنتواصل معك قريباً.',
+      label_phone: 'الهاتف', label_email: 'البريد الإلكتروني', label_website: 'الموقع الإلكتروني', label_location: 'الموقع',
+      stat1: 'خدمات رئيسية', stat2: 'رضا العملاء', stat3: 'دعم',
+      footer_copy: '© 2025 بلكاوا للتنظيف والضيافة والمقاولات. الدوحة، قطر.',
+    },
+    hi: {
+      nav_about: 'हमारे बारे में', nav_services: 'सेवाएँ', nav_why: 'हमें क्यों चुनें', nav_gallery: 'गैलरी', nav_contact: 'संपर्क करें',
+      hero_badge: 'दोहा, क़तर की नंबर 1 सफाई कंपनी',
+      hero_h1: 'सफाई.<br><em>आतिथ्य.</em><br><span class="accent-teal">ठेकेदारी.</span>',
+      hero_sub: 'बल्कावा पूरे क़तर में पेशेवर सफाई, उच्च स्तरीय आतिथ्य स्टाफिंग और पूर्ण पैमाने पर ठेकेदारी सेवाएँ प्रदान करता है — घरों, होटलों और निर्माण स्थलों द्वारा समान रूप से विश्वसनीय।',
+      hero_btn1: 'सेवाएँ देखें', hero_btn2: 'मुफ़्त कोटेशन पाएँ →',
+      about_tag: 'हम कौन हैं', about_title: 'क़तर का सबसे भरोसेमंद सेवा साझेदार',
+      about_body: 'बल्कावा आवासीय, व्यावसायिक और निर्माण संपत्तियों के लिए सर्वोत्तम सेवाएँ प्रदान करने के लिए प्रतिबद्ध है। नवीनतम तकनीकों का उपयोग करते हुए, हम दोहा में अन्य स्थानीय कंपनियों से आगे हैं।',
+      about_quote: '"सफाई और आतिथ्य दोनों क्षेत्रों में हमारी उत्कृष्टता ने हमें स्थानीय स्तर पर सबसे भरोसेमंद कंपनियों में से एक बनाया है।"',
+      services_tag: 'हम क्या करते हैं', services_title: 'हमारी मुख्य सेवाएँ',
+      svc1_title: 'सफाई', svc1_body: 'हर ज़रूरत को पूरा करने के लिए डिज़ाइन की गई पेशेवर सफाई सेवाएँ — आवासीय, कार्यालय, व्यावसायिक और गहरी सफाई।',
+      svc2_title: 'आतिथ्य', svc2_body: 'आगमन से प्रस्थान तक आपके मेहमानों को स्वागत और आरामदायक महसूस कराना। हमारी प्रशिक्षित टीम हर विवरण को सावधानी से संभालती है।',
+      svc3_title: 'ठेकेदारी', svc3_body: 'समय पर और बजट के भीतर पूर्ण पैमाने पर सिविल ठेकेदारी। हमारे विशेषज्ञ हर परियोजना में परामर्श देते हैं और अनुकूलित समाधान प्रदान करते हैं।',
+      why_tag: 'हमें क्यों चुनें', why_title: 'बल्कावा की विशेषता',
+      why_body: 'हम केवल काम पूरा नहीं करते — हम गुणवत्ता, विश्वास और परिणामों पर आधारित दीर्घकालिक साझेदारी बनाते हैं।',
+      why1_title: 'विश्वसनीय और भरोसेमंद', why1_body: 'हमारे अधिकांश काम दोहराने वाले ग्राहकों और सीधी सिफारिशों से आते हैं — निरंतर गुणवत्ता का प्रमाण।',
+      why2_title: 'नवीनतम तकनीक', why2_body: 'हम उद्योग मानकों को पार करने वाले परिणाम देने के लिए अत्याधुनिक उपकरण और तकनीकों का उपयोग करते हैं।',
+      why3_title: 'पेशेवर टीम', why3_body: 'हमारे सभी कर्मचारी प्रशिक्षित पेशेवर हैं जो हर परियोजना में गुणवत्ता और ग्राहक संतुष्टि के प्रति समर्पित हैं।',
+      why4_title: 'समय पर डिलीवरी', why4_body: 'हम आपके समय का सम्मान करते हैं। सभी परियोजनाएँ और सेवाएँ पारदर्शी संचार के साथ समय पर दी जाती हैं।',
+      gallery_tag: 'हमारा काम', gallery_title: 'प्रोजेक्ट गैलरी',
+      contact_tag: 'संपर्क करें', contact_title: 'मिलकर काम करें',
+      contact_body: 'हम परियोजना प्रबंधन के अनुशासन पर ध्यान केंद्रित करते हैं — हमारी मजबूत प्रोफ़ाइल महत्वपूर्ण मूल्य जोड़ती है। आपके किसी भी सवाल का जवाब देने के लिए हम हमेशा उपलब्ध हैं।',
+      form_title: 'हमें संदेश भेजें', form_name: 'आपका नाम', form_email: 'ईमेल पता',
+      form_service: 'आवश्यक सेवा', form_service_placeholder: 'एक सेवा चुनें...',
+      form_msg: 'संदेश', form_placeholder_name: 'राहुल शर्मा', form_placeholder_email: 'example@email.com',
+      form_placeholder_msg: 'हमें अपने प्रोजेक्ट के बारे में बताएं...', form_btn: 'संदेश भेजें →',
+      form_alert: 'धन्यवाद! हम जल्द ही आपसे संपर्क करेंगे।',
+      label_phone: 'फ़ोन', label_email: 'ईमेल', label_website: 'वेबसाइट', label_location: 'स्थान',
+      stat1: 'मुख्य सेवाएँ', stat2: 'संतुष्टि', stat3: 'सहायता',
+      footer_copy: '© 2025 बल्कावा क्लीनिंग हॉस्पिटैलिटी एंड कॉन्ट्रैक्ट। दोहा, क़तर।',
+    }
+  };
+
+  let currentLang = 'en';
+  const langMeta = {
+    en: { flag: '🇬🇧', label: 'EN' },
+    ar: { flag: '🇶🇦', label: 'AR' },
+    hi: { flag: '🇮🇳', label: 'HI' },
+  };
+
+  function toggleLang() {
+    document.getElementById('langSwitcher').classList.toggle('open');
+  }
+
+  document.addEventListener('click', (e) => {
+    const switcher = document.getElementById('langSwitcher');
+    if (switcher && !switcher.contains(e.target)) {
+      switcher.classList.remove('open');
+    }
+  });
+
+  function setLang(lang) {
+    currentLang = lang;
+    const t = translations[lang];
+
+    // Update button
+    document.getElementById('langBtnLabel').textContent = langMeta[lang].label;
+    document.querySelector('#langBtn .lang-flag').textContent = langMeta[lang].flag;
+
+    // Active option
+    document.querySelectorAll('.lang-option').forEach(opt => {
+      opt.classList.toggle('active', opt.dataset.lang === lang);
+    });
+
+    // RTL / lang class
+    document.body.classList.remove('lang-en', 'lang-ar', 'lang-hi');
+    document.body.classList.add('lang-' + lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+    // Translate data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+
+    // Stat labels
+    const statLabels = document.querySelectorAll('.stat-label');
+    if (statLabels[0]) statLabels[0].textContent = t.stat1;
+    if (statLabels[1]) statLabels[1].textContent = t.stat2;
+    if (statLabels[2]) statLabels[2].textContent = t.stat3;
+
+    // Contact card labels
+    const contactLabels = document.querySelectorAll('.contact-card-label');
+    ['label_phone','label_email','label_website','label_location'].forEach((key, i) => {
+      if (contactLabels[i]) contactLabels[i].textContent = t[key];
+    });
+
+    // Form
+    const formTitle = document.querySelector('.contact-form-box h3');
+    if (formTitle) formTitle.textContent = t.form_title;
+    const formLabels = document.querySelectorAll('.form-group label');
+    ['form_name','form_email','form_service','form_msg'].forEach((key, i) => {
+      if (formLabels[i]) formLabels[i].textContent = t[key];
+    });
+    const nameInput = document.querySelector('.form-group input[type="text"]');
+    const emailInput = document.querySelector('.form-group input[type="email"]');
+    const msgArea = document.querySelector('.form-group textarea');
+    const selectPlaceholder = document.querySelector('.form-group select option[value=""]');
+    if (nameInput) nameInput.placeholder = t.form_placeholder_name;
+    if (emailInput) emailInput.placeholder = t.form_placeholder_email;
+    if (msgArea) msgArea.placeholder = t.form_placeholder_msg;
+    if (selectPlaceholder) selectPlaceholder.textContent = t.form_service_placeholder;
+    const formBtn = document.querySelector('.contact-form-box button');
+    if (formBtn) {
+      formBtn.textContent = t.form_btn;
+      formBtn.onclick = () => alert(t.form_alert);
+    }
+
+    // Footer
+    const footerCopy = document.querySelector('.footer-copy');
+    if (footerCopy) footerCopy.textContent = t.footer_copy;
+    const footerLinks = document.querySelectorAll('.footer-links a');
+    ['nav_about','nav_services','nav_gallery','nav_contact'].forEach((key, i) => {
+      if (footerLinks[i]) footerLinks[i].textContent = t[key];
+    });
+
+    // Close dropdown
+    document.getElementById('langSwitcher').classList.remove('open');
+  }
+
+  // ─── SCROLL REVEAL ───
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger children
+  document.querySelectorAll('.services-grid, .why-grid, .gallery-grid, .contact-cards').forEach(grid => {
+    [...grid.children].forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.1}s`;
+    });
+  });
+</script>
+</body>
+</html>
