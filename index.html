@@ -51,25 +51,6 @@
 
     .nav-logo-icon svg { width: 22px; height: 22px; fill: white; }
 
-    .nav-logo-img {
-      height: 46px;
-      width: auto;
-      object-fit: contain;
-      filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.2));
-      transition: filter 0.2s;
-    }
-    .nav-logo:hover .nav-logo-img {
-      filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(232,48,74,0.6));
-    }
-    .footer-logo-img {
-      height: 72px;
-      width: auto;
-      object-fit: contain;
-      filter: brightness(0) invert(1) opacity(0.85);
-      margin-bottom: 16px;
-      display: block;
-    }
-
     .nav-logo span {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
@@ -980,7 +961,191 @@
 
     .footer-dev a:hover { color: white; }
 
-    /* ─── WHATSAPP FLOAT ─── */
+    /* ─── SERVICE EXPAND ─── */
+    .service-card {
+      cursor: pointer;
+    }
+
+    .service-expand {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s ease, opacity 0.35s ease;
+      opacity: 0;
+    }
+
+    .service-card.open .service-expand {
+      max-height: 400px;
+      opacity: 1;
+    }
+
+    .service-expand-inner {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      margin-top: 20px;
+      padding-top: 20px;
+    }
+
+    .service-expand-inner ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-expand-inner ul li {
+      font-size: 0.88rem;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .service-expand-inner ul li::before {
+      content: '✓';
+      font-weight: 700;
+      opacity: 1;
+      flex-shrink: 0;
+    }
+
+    .service-toggle-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      opacity: 0.6;
+      margin-top: 18px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+
+    .service-card:hover .service-toggle-hint { opacity: 1; }
+
+    .service-toggle-hint svg {
+      width: 14px; height: 14px;
+      fill: white;
+      transition: transform 0.35s ease;
+    }
+
+    .service-card.open .service-toggle-hint svg {
+      transform: rotate(180deg);
+    }
+
+    /* ─── BACK TO TOP ─── */
+    .back-to-top {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      width: 44px; height: 44px;
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      display: grid; place-items: center;
+      cursor: pointer;
+      z-index: 998;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s, background 0.2s;
+      text-decoration: none;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover { background: var(--red); }
+
+    .back-to-top svg {
+      width: 18px; height: 18px;
+      fill: white;
+    }
+
+    /* ─── COOKIE BANNER ─── */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      z-index: 9999;
+      transform: translateY(0);
+      transition: transform 0.4s ease;
+      flex-wrap: wrap;
+    }
+
+    .cookie-banner.hidden {
+      transform: translateY(110%);
+    }
+
+    .cookie-banner p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .cookie-banner p a {
+      color: var(--teal);
+      text-decoration: underline;
+    }
+
+    .cookie-btns {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .cookie-accept {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 9px 22px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .cookie-accept:hover { background: #c9263e; }
+
+    .cookie-decline {
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .cookie-decline:hover { border-color: rgba(255,255,255,0.35); color: white; }
+
+    /* ─── COUNTER ANIMATION ─── */
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+    }
+
+    .stat-num span { color: var(--red); }
+
+    /* ─── WHATSAPP FOOTER ─── */
+    @media (max-width: 900px) {
+      .cookie-banner { padding: 16px 20px; }
+    }
+
     .whatsapp-float {
       position: fixed;
       bottom: 28px; right: 28px;
@@ -1071,7 +1236,10 @@
   </div>
 
   <a class="nav-logo" href="#">
-    <img src="logo.png" alt="Balkawa Logo" class="nav-logo-img" />
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7z"/></svg>
+    </div>
+    <span>BALKAWA</span>
   </a>
   <ul class="nav-links">
     <li><a href="#about" data-i18n="nav_about">About</a></li>
@@ -1112,15 +1280,15 @@
   </div>
   <div class="hero-stats">
     <div class="stat">
-      <div class="stat-num">3<span>+</span></div>
+      <div class="stat-num" data-target="3" data-suffix="+"><span class="counter">3</span><span>+</span></div>
       <div class="stat-label">Core Services</div>
     </div>
     <div class="stat">
-      <div class="stat-num">100<span>%</span></div>
+      <div class="stat-num" data-target="100" data-suffix="%"><span class="counter">100</span><span>%</span></div>
       <div class="stat-label">Satisfaction</div>
     </div>
     <div class="stat">
-      <div class="stat-num">24<span>/7</span></div>
+      <div class="stat-num" data-target="24" data-suffix="/7"><span class="counter">24</span><span>/7</span></div>
       <div class="stat-label">Support</div>
     </div>
   </div>
@@ -1155,7 +1323,7 @@
     <a href="#contact" class="btn-primary">Request a Quote →</a>
   </div>
   <div class="services-grid">
-    <div class="service-card cleaning reveal">
+    <div class="service-card cleaning reveal" onclick="toggleService(this)">
       <div class="service-num">01</div>
       <div class="service-card-icon">
         <svg viewBox="0 0 24 24"><path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14a3 3 0 003 3h9a3 3 0 003-3V2l-1.5 1.5zM19 16a1 1 0 01-2 0v-1H7V5h12v11z"/></svg>
@@ -1169,8 +1337,24 @@
         <span class="service-tag">Deep Clean</span>
         <span class="service-tag">Move In/Out</span>
       </div>
+      <div class="service-toggle-hint">
+        <span>See details</span>
+        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+      </div>
+      <div class="service-expand">
+        <div class="service-expand-inner">
+          <ul>
+            <li>Villa & apartment deep cleaning</li>
+            <li>Post-construction cleanup</li>
+            <li>Move-in / move-out sanitisation</li>
+            <li>Carpet & upholstery steam cleaning</li>
+            <li>Window & façade washing</li>
+            <li>Scheduled maintenance contracts</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="service-card hospitality reveal">
+    <div class="service-card hospitality reveal" onclick="toggleService(this)">
       <div class="service-num">02</div>
       <div class="service-card-icon">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
@@ -1183,8 +1367,24 @@
         <span class="service-tag">Kitchen Support</span>
         <span class="service-tag">Pest Control</span>
       </div>
+      <div class="service-toggle-hint">
+        <span>See details</span>
+        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+      </div>
+      <div class="service-expand">
+        <div class="service-expand-inner">
+          <ul>
+            <li>Hotel room attendants & housekeeping</li>
+            <li>Banquet & event waitstaff</li>
+            <li>Kitchen porters & prep support</li>
+            <li>Front-of-house guest services</li>
+            <li>Pest control & hygiene management</li>
+            <li>Laundry & linen services</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="service-card contracting reveal">
+    <div class="service-card contracting reveal" onclick="toggleService(this)">
       <div class="service-num">03</div>
       <div class="service-card-icon">
         <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
@@ -1196,6 +1396,22 @@
         <span class="service-tag">Road Projects</span>
         <span class="service-tag">Pile Breaking</span>
         <span class="service-tag">Demolition</span>
+      </div>
+      <div class="service-toggle-hint">
+        <span>See details</span>
+        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+      </div>
+      <div class="service-expand">
+        <div class="service-expand-inner">
+          <ul>
+            <li>Civil & structural infrastructure</li>
+            <li>Road construction & maintenance</li>
+            <li>Pile breaking & concrete works</li>
+            <li>Demolition & site clearance</li>
+            <li>MEP fit-out & refurbishment</li>
+            <li>Project consultation & planning</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -1290,13 +1506,13 @@
           <div class="contact-card-value">+974 5507 0979</div>
         </div>
       </a>
-      <a href="/cdn-cgi/l/email-protection#ed84838b82ad8f8c81868c9a8cc38e8280" class="contact-card">
+      <a href="mailto:balkawacleaning@gmail.com" class="contact-card">
         <div class="contact-card-icon">
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
         <div>
           <div class="contact-card-label">Email</div>
-          <div class="contact-card-value"><span class="__cf_email__" data-cfemail="ee87808881ae8c8f82858f998fc08d8183">[email&#160;protected]</span></div>
+          <div class="contact-card-value">balkawacleaning@gmail.com</div>
         </div>
       </a>
       <a href="https://balkawa.com" target="_blank" class="contact-card">
@@ -1321,40 +1537,59 @@
   </div>
   <div class="contact-form-box reveal">
     <h3>Send Us a Message</h3>
-    <div class="form-group">
-      <label>Your Name</label>
-      <input type="text" placeholder="John Doe" />
+    <div id="formSuccess" style="display:none; background:rgba(26,158,150,0.15); border:1px solid var(--teal); border-radius:10px; padding:20px; text-align:center; color:var(--teal); font-weight:600; margin-bottom:16px;">
+      ✅ Thank you! We'll be in touch shortly.
     </div>
-    <div class="form-group">
-      <label>Email Address</label>
-      <input type="email" placeholder="john@example.com" />
+    <div id="formFields">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="f_name" placeholder="John Doe" />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="f_email" placeholder="john@example.com" />
+      </div>
+      <div class="form-group">
+        <label>Service Required</label>
+        <select id="f_service">
+          <option value="">Select a service...</option>
+          <option>Residential Cleaning</option>
+          <option>Commercial Cleaning</option>
+          <option>Office Cleaning</option>
+          <option>Deep Cleaning</option>
+          <option>Hospitality Staffing</option>
+          <option>Contracting / Civil Works</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="f_message" placeholder="Tell us about your project..."></textarea>
+      </div>
+      <button class="btn-primary" id="submitBtn" style="width:100%;justify-content:center;border:none;cursor:pointer;font-family:'DM Sans',sans-serif" onclick="submitForm()">
+        Send Message →
+      </button>
     </div>
-    <div class="form-group">
-      <label>Service Required</label>
-      <select>
-        <option value="">Select a service...</option>
-        <option>Residential Cleaning</option>
-        <option>Commercial Cleaning</option>
-        <option>Office Cleaning</option>
-        <option>Deep Cleaning</option>
-        <option>Hospitality Staffing</option>
-        <option>Contracting / Civil Works</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Message</label>
-      <textarea placeholder="Tell us about your project..."></textarea>
-    </div>
-    <button class="btn-primary" style="width:100%;justify-content:center;border:none;cursor:pointer;font-family:'DM Sans',sans-serif" onclick="alert('Thank you! We will be in touch shortly.')">
-      Send Message →
-    </button>
   </div>
 </section>
 
 <!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/97455070979" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+<a href="https://wa.me/97455070979?text=Hello%2C%20I%20am%20interested%20in%20your%20services.%20Could%20you%20please%20provide%20more%20information%3F" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
+
+<!-- BACK TO TOP -->
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+</a>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner">
+  <p>🍪 We use cookies to improve your experience on our website. By continuing to browse, you agree to our use of cookies. <a href="#" onclick="return false;">Learn more</a></p>
+  <div class="cookie-btns">
+    <button class="cookie-decline" onclick="dismissCookie()">Decline</button>
+    <button class="cookie-accept" onclick="acceptCookie()">Accept All</button>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1362,7 +1597,10 @@
     <!-- Brand Column -->
     <div class="footer-col-brand">
       <a href="#" class="footer-brand">
-        <img src="logo.png" alt="Balkawa Logo" class="footer-logo-img" />
+        <div class="footer-brand-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7z"/></svg>
+        </div>
+        <span class="footer-brand-name">BALK<span>AWA</span></span>
       </a>
       <p class="footer-tagline">Professional cleaning, world-class hospitality, and full-scale contracting services across Qatar — trusted by homes, hotels, and construction sites.</p>
       <div class="footer-social">
@@ -1400,7 +1638,7 @@
         </div>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e58c8b838aa58784898e849284cb868a88">[email&#160;protected]</a></span>
+          <span><a href="mailto:balkawacleaning@gmail.com" style="color:inherit;text-decoration:none;">balkawacleaning@gmail.com</a></span>
         </div>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
@@ -1420,7 +1658,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // ─── TRANSLATIONS ───
   const translations = {
     en: {
@@ -1626,6 +1864,105 @@
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => observer.observe(el));
+
+  // ─── SERVICE EXPAND ───
+  function toggleService(card) {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+  }
+
+  // ─── BACK TO TOP ───
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) backToTop.classList.add('visible');
+    else backToTop.classList.remove('visible');
+  });
+
+  // ─── COOKIE BANNER ───
+  const cookieBanner = document.getElementById('cookieBanner');
+  if (localStorage.getItem('cookieChoice')) {
+    cookieBanner.classList.add('hidden');
+  }
+  function acceptCookie() {
+    localStorage.setItem('cookieChoice', 'accepted');
+    cookieBanner.classList.add('hidden');
+  }
+  function dismissCookie() {
+    localStorage.setItem('cookieChoice', 'declined');
+    cookieBanner.classList.add('hidden');
+  }
+
+  // ─── COUNTER ANIMATION ───
+  let countersDone = false;
+  function animateCounters() {
+    if (countersDone) return;
+    countersDone = true;
+    document.querySelectorAll('.stat-num').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const counterEl = el.querySelector('.counter');
+      if (!counterEl) return;
+      const duration = 1600;
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        counterEl.textContent = Math.floor(ease * target);
+        if (progress < 1) requestAnimationFrame(step);
+        else counterEl.textContent = target;
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  // Trigger counters when hero stats come into view
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) animateCounters();
+    });
+  }, { threshold: 0.5 });
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) statsObserver.observe(heroStats);
+  // Also fire on load if already visible
+  setTimeout(() => {
+    if (heroStats) {
+      const rect = heroStats.getBoundingClientRect();
+      if (rect.top < window.innerHeight) animateCounters();
+    }
+  }, 800);
+
+  // ─── CONTACT FORM SUBMIT ───
+  async function submitForm() {
+    const name = document.getElementById('f_name').value.trim();
+    const email = document.getElementById('f_email').value.trim();
+    const service = document.getElementById('f_service').value;
+    const message = document.getElementById('f_message').value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill in your name, email, and message.');
+      return;
+    }
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/balkawacleaning@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, service: service || 'Not specified', message, _subject: 'New Enquiry from Balkawa Website' })
+      });
+      if (res.ok) {
+        document.getElementById('formFields').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+      alert('Something went wrong. Please email us directly at balkawacleaning@gmail.com');
+    }
+  }
 
 </script>
 </body>
